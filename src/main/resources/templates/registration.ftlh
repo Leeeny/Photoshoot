@@ -2,7 +2,7 @@
 <#import "parts/login.ftlh" as l>
 
 <@c.page>
-    Registration a new user
+    <div class="mb-2">Пожалуйста, заполните поля ниже: </div>
     ${message?ifExists}
-    <@l.login "/registration" />
+    <@l.login "/registration" true/>
 </@c.page>

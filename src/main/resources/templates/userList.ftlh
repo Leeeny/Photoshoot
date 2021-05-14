@@ -1,13 +1,12 @@
 <#import "parts/common.ftlh" as c>
+<#import "parts/security.ftlh" as g>
 
 <@c.page>
-    List of users
-
     <table>
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Role</th>
+            <th>Имя</th>
+            <th>Роль</th>
             <th></th>
         </tr>
         </thead>
@@ -16,7 +15,9 @@
             <tr>
                 <td>${user.username}</td>
                 <td><#list user.roles as role>${role}<#sep>, </#list></td>
-                <td><a href="/user/${user.id}">edit</a></td>
+                <#if g.isModer>
+                <td><a href="/user/${user.id}">изменить</a></td>
+                </#if>
             </tr>
         </#list>
         </tbody>

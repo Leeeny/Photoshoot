@@ -10,10 +10,11 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer post_id;
-    private String tag;
+    private Long post_id;
+    //@NotBlank(message = "Пожалуйста, заполните это поле")
     private String text;
     private LocalDateTime date;
+    private String tag;
     private String filename; //img
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -51,11 +52,11 @@ public class Post {
         return text;
     }
 
-    public Integer getPost_idId() {
+    public Long getPostId() {
         return post_id;
     }
 
-    public void sePostId(Integer post_id) {
+    public void setPostId(Long post_id) {
         this.post_id = post_id;
     }
 
