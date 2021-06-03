@@ -9,7 +9,7 @@
         </div>
         <div class="card-footer text-muted">
             Запостил:
-            <a href="/user-messages/${post.author.id}">${post.authorName}</a>
+            <a href="/user-posts/${post.author.id}">${post.authorName}</a>
         </div>
     </div>
 <#else>

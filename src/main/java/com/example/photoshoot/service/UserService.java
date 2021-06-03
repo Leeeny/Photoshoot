@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public void updateProfile(User user, String password, String gender, String age, boolean type) {
+    public void updateProfile(User user, String password, String gender, String age) {
         if(!StringUtils.isEmpty(password)){
             user.setPassword(password);
         }
@@ -62,10 +62,16 @@ public class UserService implements UserDetailsService {
         if(!StringUtils.isEmpty(age)){
             user.setAge(age);
         }
-        if(StringUtils.isEmpty(type)){
-            user.setType(false);
-        }else
-            user.setType(true);
+        userRepo.save(user);
+    }
+
+    public void subscribe(User currentUser, User user) {
+        user.getSubscribers().add(currentUser);
+        userRepo.save(user);
+    }
+
+    public void unsubscribe(User currentUser, User user) {
+        user.getSubscribers().remove(currentUser);
         userRepo.save(user);
     }
 }

@@ -11,10 +11,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long post_id;
-    //@NotBlank(message = "Пожалуйста, заполните это поле")
     private String text;
-    private LocalDateTime date;
-    private String tag;
     private String filename; //img
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -24,11 +21,10 @@ public class Post {
     public Post() {
     }
 
-    //public Post(String text, String tag, LocalDateTime date, User user) {
+    //public Post(String text, LocalDateTime date, User user) {
     public Post(String text, User user) {
         this.author = user;
         this.text = text;
-        //this.tag = tag;
         //this.date = date;
     }
 

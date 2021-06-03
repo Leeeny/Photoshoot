@@ -34,18 +34,9 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
+    public String main(Model model) {
         Iterable<Post> posts = postRepo.findAll();
-
-        if (filter != null && !filter.isEmpty()) {
-            posts = postRepo.findByTag(filter);
-        } else {
-            posts = postRepo.findAll();
-        }
-
         model.addAttribute("posts", posts);
-        model.addAttribute("filter", filter);
-
         return "main";
     }
 
@@ -58,7 +49,7 @@ public class MainController {
             Map<String, Object> model,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-       // Post post = new Post(text, tag, date, user);
+        // Post post = new Post(text, tag, date, user);
         Post post = new Post(text, user);
         if (file != null) {
             File uploadDir = new File(uploadPath);
@@ -76,21 +67,59 @@ public class MainController {
 
         model.put("posts", posts);
 
-        return "main";
+        return "redirect:/main";
     }
+
     @GetMapping("/user-posts/{user}")
     public String userPosts(@AuthenticationPrincipal User currentUser,
                             @PathVariable User user,
                             Model model,
-                            @RequestParam(required = false) Post post){
+                            @RequestParam(required = false) Post post) {
         Set<Post> posts = user.getPosts();
+        model.addAttribute("userProfile", user);
+        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
+        model.addAttribute("subscribersCount", user.getSubscribers().size());
+        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
         model.addAttribute("posts", posts);
         model.addAttribute("post", post);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
-
-
         return "userPosts";
+    }
+
+    @GetMapping("/error")
+    public String error(){
+        return "redirect:/main";
+    }
+
+    @PostMapping("/user-posts/{user}")
+    public String addProfilePost(@AuthenticationPrincipal User user,
+                             @RequestParam String text,
+                             //@RequestParam LocalDateTime date,
+                             //@RequestParam String tag,
+                             Map<String, Object> model,
+                             @RequestParam("file") MultipartFile file
+    ) throws IOException {
+        // Post post = new Post(text, tag, date, user);
+        Post post = new Post(text, user);
+        if (file != null) {
+            File uploadDir = new File(uploadPath);
+            if (uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFileName = uuidFile + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + resultFileName));
+            post.setFilename(resultFileName);
+        }
+        postRepo.save(post);
+
+        Iterable<Post> posts = postRepo.findAll();
+
+        model.put("posts", posts);
+
+        return "redirect:/user-posts/" + user.getId();
     }
 
 
 }
+
