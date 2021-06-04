@@ -31,12 +31,7 @@
                     <input type="date" class="form-control" name="age" placeholder="20"/>
                 </div>
             </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Приватный аккаунт: </label>
-                <div class="col-sm-2">
-                    <input class="form-control col-sm-1" name="type" type="checkbox">
-                </div>
-            </div>
+
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Я согласен с правилами платформы </label>
                 <div class="col-sm-2">

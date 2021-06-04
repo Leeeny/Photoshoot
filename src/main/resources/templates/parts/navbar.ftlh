@@ -28,11 +28,17 @@
                     <a class="nav-link" href="/user/profile">Настройки</a>
                 </li>
             </#if>
+
         </ul>
-        <div class="navbar-text mr-3">${name}</div>
-        <#if user??>
-            <@l.logout />
-        </#if>
+
+
+        <div class="navbar-text mr-3">${name}
+        </div>
+        <li class="nav-item">
+            <#if user??>
+                <@l.logout />
+            </#if>
+        </li>
     </div>
 
 </nav>

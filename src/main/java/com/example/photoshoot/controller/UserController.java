@@ -25,7 +25,7 @@ public class UserController {
         return "userList";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('MODER')")
     @GetMapping("{user}")
     public String userEditForm(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
@@ -33,7 +33,7 @@ public class UserController {
         return "userEdit";
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('MODER')")
     @PostMapping
     public String userSave(@RequestParam String username,
                            @RequestParam Map<String, String> form,

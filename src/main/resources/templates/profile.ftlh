@@ -25,14 +25,12 @@
             <input type="date" class="form-control" name="age" placeholder="20"/>
         </div>
     </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Приватный аккаунт: </label>
-        <div class="col-sm-2">
-            <input class="form-control col-sm-1" name="type" type="checkbox">
-        </div>
-    </div>
     </div>
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-    <button class="btn btn-primary" type="submit">Сохранить</button>
+
+            <div class="col-sm-2">
+                <button class="btn btn-primary" type="submit">Сохранить</button>
+            </div>
+
     </form>
 </@c.page>
