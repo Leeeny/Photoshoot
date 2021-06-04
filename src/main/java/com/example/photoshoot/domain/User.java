@@ -46,6 +46,7 @@ public class User implements UserDetails {
     )
     private Set<User> subscriptions = new HashSet<>();
 
+
     public User() {
 
     }
